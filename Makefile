@@ -43,11 +43,11 @@ remduplicates = $(strip $(if $1,$(firstword $1) $(call remduplicates,$(filter-ou
 C_SOURCE_FILES += \
 ./src/main.c \
 ./src/timer_issue.c \
+./src/app_timer.c \
 $(NORDIC_SDK_PATH)/components/ble/ble_advertising/ble_advertising.c \
 $(NORDIC_SDK_PATH)/components/ble/common/ble_advdata.c \
 $(NORDIC_SDK_PATH)/components/drivers_nrf/delay/nrf_delay.c \
 $(NORDIC_SDK_PATH)/components/drivers_nrf/pstorage/pstorage.c \
-$(NORDIC_SDK_PATH)/components/libraries/timer/app_timer.c \
 $(NORDIC_SDK_PATH)/components/softdevice/common/softdevice_handler/softdevice_handler.c \
 $(NORDIC_SDK_PATH)/components/toolchain/system_nrf51.c \
 

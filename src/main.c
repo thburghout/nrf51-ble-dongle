@@ -33,7 +33,8 @@ void advertising_start(void);
 int main(void)
 {
     // Initialize.
-    APP_TIMER_INIT(APP_TIMER_PRESCALER, APP_TIMER_OP_QUEUE_SIZE, NULL);
+    uint32_t err_code = app_timer_init();
+    APP_ERROR_CHECK(err_code);
     ble_stack_init();
     gap_params_init();
     test_timer_init();

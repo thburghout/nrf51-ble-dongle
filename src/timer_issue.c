@@ -4,7 +4,7 @@
 #include "timer_issue.h"
 
 
-#define SECOND_TIMER_DELAY   APP_TIMER_TICKS(15000, APP_TIMER_PRESCALER)
+#define SECOND_TIMER_DELAY   APP_TIMER_TICKS(15000)
 
 APP_TIMER_DEF(m_inverted_timer);
 APP_TIMER_DEF(m_second_timer);
@@ -19,7 +19,7 @@ void test_timer_on_ble_evt(ble_evt_t *p_ble_evt)
                                         // resolves the issue.
             NRF_TIMER2->TASKS_CLEAR = 		1;
             NRF_TIMER2->TASKS_START = 		1;
-            err = app_timer_start(m_second_timer, APP_TIMER_TICKS(3000, APP_TIMER_PRESCALER), NULL);
+            err = app_timer_start(m_second_timer, APP_TIMER_TICKS(3000), NULL);
             nrf_gpio_pin_set(PIN_DEBUG_1);
             nrf_gpio_pin_set(PIN_DEBUG_2);
             break;
@@ -91,7 +91,7 @@ void test_timer_init()
     NVIC_SetPriority(TIMER2_IRQn, 3);
     NVIC_EnableIRQ(TIMER2_IRQn);
 
-    err = app_timer_start(m_second_timer, APP_TIMER_TICKS(3000, APP_TIMER_PRESCALER), NULL);
+    err = app_timer_start(m_second_timer, APP_TIMER_TICKS(3000), NULL);
     APP_ERROR_CHECK(err);
 }
 

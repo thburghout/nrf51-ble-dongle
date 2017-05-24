@@ -66,13 +66,14 @@
 
 #ifndef APP_TIMER_H__
 #define APP_TIMER_H__
-#include "sdk_config.h"
 #include "app_error.h"
 #include "app_util.h"
 #include "compiler_abstraction.h"
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <sdk_errors.h>
+#include "config.h"
 
 #ifdef __cplusplus
 extern "C" {

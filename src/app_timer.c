@@ -38,20 +38,18 @@
  * 
  */
 #include "sdk_common.h"
-#if NRF_MODULE_ENABLED(APP_TIMER)
 #include "app_timer.h"
 #include <stdlib.h>
 #include "nrf.h"
 #include "nrf_soc.h"
-#include "app_error.h"
 #include "nrf_delay.h"
 #include "app_util_platform.h"
 #if APP_TIMER_CONFIG_USE_SCHEDULER
 #include "app_scheduler.h"
 #endif
 
-#define RTC1_IRQ_PRI            APP_TIMER_CONFIG_IRQ_PRIORITY               /**< Priority of the RTC1 interrupt (used for checking for timeouts and executing timeout handlers). */
-#define SWI_IRQ_PRI             APP_TIMER_CONFIG_IRQ_PRIORITY               /**< Priority of the SWI  interrupt (used for updating the timer list). */
+#define RTC1_IRQ_PRI            APP_IRQ_PRIORITY_LOWEST               /**< Priority of the RTC1 interrupt (used for checking for timeouts and executing timeout handlers). */
+#define SWI_IRQ_PRI             APP_IRQ_PRIORITY_LOWEST               /**< Priority of the SWI  interrupt (used for updating the timer list). */
 
 // The current design assumes that both interrupt handlers run at the same interrupt level.
 // If this is to be changed, protection must be added to prevent them from interrupting each other
@@ -958,7 +956,7 @@ ret_code_t app_timer_create(app_timer_id_t const *      p_timer_id,
                             app_timer_timeout_handler_t timeout_handler)
 {
     // Check state and parameters
-    VERIFY_MODULE_INITIALIZED();
+   // VERIFY_MODULE_INITIALIZED();
 
     if (timeout_handler == NULL)
     {
@@ -986,7 +984,7 @@ ret_code_t app_timer_start(app_timer_id_t timer_id, uint32_t timeout_ticks, void
     timer_node_t * p_node = (timer_node_t*)timer_id;
 
     // Check state and parameters
-    VERIFY_MODULE_INITIALIZED();
+    //VERIFY_MODULE_INITIALIZED();
 
     if (timer_id == 0)
     {
@@ -1015,7 +1013,7 @@ ret_code_t app_timer_stop(app_timer_id_t timer_id)
 {
     timer_node_t * p_node = (timer_node_t*)timer_id;
     // Check state and parameters
-    VERIFY_MODULE_INITIALIZED();
+    //VERIFY_MODULE_INITIALIZED();
 
     if ((timer_id == NULL) || (p_node->p_timeout_handler == NULL))
     {
@@ -1032,7 +1030,7 @@ ret_code_t app_timer_stop(app_timer_id_t timer_id)
 ret_code_t app_timer_stop_all(void)
 {
     // Check state
-    VERIFY_MODULE_INITIALIZED();
+    //VERIFY_MODULE_INITIALIZED();
 
     return timer_stop_op_schedule(NULL, TIMER_USER_OP_TYPE_STOP_ALL);
 }
@@ -1066,5 +1064,3 @@ void app_timer_resume(void)
 {
     NRF_RTC1->TASKS_START = 1;
 }
-
-#endif //NRF_MODULE_ENABLED(APP_TIMER)
